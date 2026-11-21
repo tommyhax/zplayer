@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "z/packages/core"
+    },
+    {
+      "path": "z/packages/zip"
+    },
+    {
+      "path": "z/packages/desk"
+    }
+  ]
+}

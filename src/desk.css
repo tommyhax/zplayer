@@ -1,0 +1,109 @@
+/* The player's desk: the monitor, the glass and the phosphor the terminal is lit in, the
+   keyboard under it, and the desk-only view that scales the whole to its ground. Comes
+   after @z/desk's terminal sheet, which draws the console's geometry; this sheet lights
+   it. The glass overrides the terminal's colour tokens to apply the player's palette. */
+/* Green-screen styling: pale text with a green fringe on dark grey-green glass,
+   inset into a rounded black recess and a matte slate-blue case. The glass defines
+   the palette: --ink colours the text, --panel colours its background and the
+   reverse-video status letters, and --accent colours the player's commands. */
+/* The case: the slate-blue painted steel, square-cornered and matte. The recess: black
+   plastic with a wide radius, a little narrower than the machine's own. */
+.monitor{flex:none; margin:0; padding:18px; background:#5c6672; border:1px solid #464e58; border-radius:5px}
+.recess{padding:16px; background:#16171a; border-radius:30px}
+.glass{
+  flex:none; position:relative; display:flex; flex-direction:column; align-items:flex-start; color-scheme:dark;
+  --panel:#141f19; --panel-2:rgba(8,16,12,.4); --ink:#b8f4c6; --accent:#ffffff;
+  --soft:#7dd39a; --faint:#4d9367; --rule:#2a4535;
+  --fringe:#58e88a;
+  padding:16px 18px; border-radius:20px; overflow:hidden;
+  background:radial-gradient(110% 95% at 50% 45%, #1d2b23 0%, #141f19 55%, #0d1611 100%);
+}
+/* The curve of the tube, over the glass and catching nothing: the corners fall off, the
+   centre stays what it is. ::after, not ::before, because ::before paints under the screen
+   and ::after over it. */
+.glass::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:radial-gradient(115% 90% at 50% 46%, rgba(0,0,0,0) 62%, rgba(0,0,0,.42) 100%);
+}
+/* The row pitch is a whole number of raster lines: 21px, seven lines of 3px, so the raster
+   below is locked to the character rows as a CRT's was, instead of drifting past them. */
+.glass .terminal{--size:13px; --pitch:21px}
+/* The reverse-video status line: a solid bar of lit phosphor, which bloomed harder than
+   any single stroke did, so it gets the wider glow. */
+.glass .status-row{box-shadow:0 0 6px var(--fringe), 0 0 18px rgba(88,232,138,.45)}
+/* The raster the text is drawn on, and only there -- the status line is a solid bar and
+   stays solid. One dark line in three, faint enough that a 13px stroke keeps its contrast.
+   Phosphor bloom: a tight fringe of the phosphor's colour and a wider, fainter spread into
+   the glass. Two shadows, which is as many as scrolling text should carry. */
+.glass .upper, .glass .term{
+  background:repeating-linear-gradient(to bottom, rgba(6,14,10,.22) 0 1px, transparent 1px 3px);
+  text-shadow:0 0 3px var(--fringe), 0 0 11px rgba(88,232,138,.5);
+}
+/* Scrollback is the pre's own, and a tube had no scrollbar: keep it thin and in the
+   phosphor's dim colour, there to find but not part of the picture. */
+.glass .term{scrollbar-color:var(--faint) transparent}
+.glass .term ::selection{background:var(--soft); color:var(--panel)}
+.glass .term .said{text-shadow:0 0 3px var(--fringe), 0 0 12px rgba(88,232,138,.7)}
+/* ---- the keyboard ---- */
+/* The desk: the monitor and, when it is wanted, the keyboard under it, as wide as the case.
+   `max-content` is the monitor's width -- the keyboard is an inline-size container, which
+   contributes nothing to the desk's own width, and stretches to the monitor's. */
+.desk{display:flex; flex-direction:column; align-items:stretch; width:max-content}
+/* The keyboard abuts the monitor: the two cases meet on one seam, the joining corners
+   squared off, so the desk is one piece of painted steel rather than two boxes on a page. */
+.monitor:has(+ .keyboard){border-bottom-left-radius:0; border-bottom-right-radius:0}
+/* The keyboard, in outline: five rows on a 14-unit bed in the same slate-blue
+   painted case as the monitor, which it abuts. The unit comes from the case's inner width,
+   so the caps scale with the glass and stay square. It scrolls with the monitor, one desk,
+   and like the case it is matte and casts nothing. */
+.keyboard{
+  display:flex; align-items:flex-start; padding:16px 18px 20px;
+  background:#5c6672; border:1px solid #464e58; border-radius:0 0 5px 5px;
+  border-top:1px solid #4d5560;
+  container-type:inline-size;
+  user-select:none; -webkit-user-select:none;
+}
+.keyboard > *{--u:calc(100cqw / 14)}
+.keys-main{display:flex; flex-direction:column; flex:none; width:calc(var(--u) * 14)}
+.keys-row{display:flex; padding-left:calc(var(--u) * var(--offset, 0))}
+/* A key is its cell on the bed; the cap is the button's face inside it, the gap between
+   caps being the cell's padding. No focus: the ground keeps it, so a keyboard plugged into
+   the tablet carries on where the tap left off. */
+.key{
+  appearance:none; border:0; background:transparent; margin:0; padding:2px; cursor:pointer;
+  flex:none; width:calc(var(--u) * var(--w, 1)); height:var(--u);
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent; color:inherit; font:inherit;
+}
+/* Pale caps with dark legends for the alphanumerics; the modifiers in the charcoal the
+   machine's were. A cap stands 2px proud of the bed and sits down when pressed. */
+.cap{
+  display:flex; align-items:center; justify-content:center; width:100%; height:100%;
+  border-radius:4px; background:#dcd9d0; color:#25272b;
+  font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:600; font-size:calc(var(--u) * .36);
+  text-transform:uppercase; line-height:1; letter-spacing:.02em;
+  box-shadow:0 2px 0 #a09d95, inset 0 1px 0 rgba(255,255,255,.45);
+  transform:translateY(-1px);
+}
+.cap.word{font-size:calc(var(--u) * .21); letter-spacing:.06em; text-align:center; padding:0 .3em}
+.key-dark .cap{background:#3b3e44; color:#e6e4de; box-shadow:0 2px 0 #1e2023, inset 0 1px 0 rgba(255,255,255,.12)}
+.key:active .cap{transform:translateY(1px); box-shadow:0 0 0 #a09d95, inset 0 1px 0 rgba(255,255,255,.45); background:#cfccc3}
+.key-dark:active .cap{box-shadow:0 0 0 #1e2023, inset 0 1px 0 rgba(255,255,255,.12); background:#2f3237}
+.key:focus-visible{outline:none}
+.key:focus-visible .cap{outline:2px solid #ffffff; outline-offset:-2px}
+/* The dark keyboard, for playing with the lights off: the pale caps were a lamp under the
+   glass, so every cap goes to near-black with pale legends, and the bed goes down with them
+   so the block throws no more light than the case round the glass. The modifiers keep
+   their own shade, a step lighter now rather than darker, so they still read apart. */
+.keyboard-dark{background:#2c3037; border-color:#22252b; border-top-color:#383c44}
+.monitor:has(+ .keyboard-dark){border-bottom-color:#383c44}
+.keyboard-dark .cap{background:#1b1d21; color:#e6e4de; box-shadow:0 2px 0 #08090b, inset 0 1px 0 rgba(255,255,255,.08)}
+.keyboard-dark .key-dark .cap{background:#33363d; color:#e6e4de; box-shadow:0 2px 0 #121316, inset 0 1px 0 rgba(255,255,255,.1)}
+.keyboard-dark .key:active .cap{transform:translateY(1px); box-shadow:0 0 0 #08090b, inset 0 1px 0 rgba(255,255,255,.08); background:#111214}
+.keyboard-dark .key-dark:active .cap{box-shadow:0 0 0 #121316, inset 0 1px 0 rgba(255,255,255,.1); background:#26292f}
+
+/* ---- the desk alone ---- */
+/* The desk on a dark ground and nothing else, filling its wrap: the player's whole view.
+   The desk keeps its one shape at the 13px pitch and is scaled to fit by desk.ts, which
+   sets --desk-scale from the ground's size. */
+.screen.desk-only{position:relative; flex:1; min-height:0; overflow:hidden; padding:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#0b0c0e; outline:none}
+.screen.desk-only .desk{flex:none; transform:scale(var(--desk-scale, 1)); transform-origin:center}

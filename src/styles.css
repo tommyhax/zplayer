@@ -1,0 +1,39 @@
+/* The player's ground: dark, edge to edge; @z/desk's terminal sheet draws the console and desk.css the monitor round it. */
+html, body{margin:0; height:100%; background:#0b0c0e; color:#dee2ea; overflow:hidden; overscroll-behavior:none}
+*{box-sizing:border-box}
+body{font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-text-size-adjust:100%; -webkit-touch-callout:none}
+/* The window, into the corners under a tablet's status bar and home indicator. */
+#root{height:100vh; height:100dvh; display:flex; flex-direction:column; padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+
+/* ---- the desk ---- */
+.ground{position:relative; flex:1; min-height:0; display:flex; flex-direction:column}
+/* The tabs on the ground's corners: the title, which is the way back, and in the other
+   corner the keyboard's switches -- on or off, and its caps light or dark. */
+.ground-tabs{position:absolute; top:12px; right:14px; display:flex; gap:8px}
+.title-tab, .keys-tab, .shade-tab{
+  appearance:none; cursor:pointer;
+  font:inherit; font-family:"IBM Plex Sans Condensed",sans-serif; font-size:10.5px; font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase; color:#8a92a2;
+  background:transparent; border:1px solid #2b303b; border-radius:3px; padding:4px 8px;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+.title-tab{position:absolute; top:12px; left:14px; max-width:50vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.title-tab:hover, .keys-tab:hover, .shade-tab:hover{color:#dee2ea; border-color:#464e58}
+.notice{position:absolute; left:50%; bottom:16px; transform:translateX(-50%); padding:6px 12px; border-radius:4px; background:#33241d; color:#e28a63; font-size:12.5px}
+
+/* ---- the shelf ---- */
+.shelf{flex:1; min-height:0; overflow:auto; padding:28px clamp(18px, 4vw, 48px) 48px; -webkit-overflow-scrolling:touch}
+.shelf-head h1{margin:0; font-size:22px; font-weight:600; letter-spacing:.01em}
+.shelf-head p{margin:4px 0 22px; color:#8a92a2; font-size:13px}
+.titles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px}
+.title-card{
+  appearance:none; width:100%; text-align:left; cursor:pointer; color:inherit; font:inherit;
+  display:flex; flex-direction:column; gap:4px; padding:14px 16px; min-height:88px;
+  background:#1a1d25; border:1px solid #2b303b; border-radius:6px;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+.title-card:hover{border-color:#464e58; background:#20242d}
+.title-card:active{background:#262b35}
+.title-name{font-size:15px; font-weight:600; line-height:1.3}
+.title-release{font-family:"IBM Plex Mono",monospace; font-size:11px; color:#8a92a2; font-variant-numeric:tabular-nums}
+.title-saved{margin-top:auto; align-self:flex-start; font-family:"IBM Plex Sans Condensed",sans-serif; font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#78b394}

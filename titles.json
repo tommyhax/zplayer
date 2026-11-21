@@ -1,0 +1,29 @@
+{
+  "//": "The titles the player stages, by retained binary id (historical/games/binaries/<id>-s<serial>.z3) and the name shown on the shelf. The serial comes from the file, not from here.",
+  "titles": [
+    { "id": "ballyhoo-r97", "label": "Ballyhoo" },
+    { "id": "cutthroats-r23", "label": "Cutthroats" },
+    { "id": "deadline-r27", "label": "Deadline" },
+    { "id": "enchanter-r29", "label": "Enchanter" },
+    { "id": "hitchhiker-r59", "label": "The Hitchhiker's Guide to the Galaxy" },
+    { "id": "hollywoodhijinx-r37", "label": "Hollywood Hijinx" },
+    { "id": "infidel-r22", "label": "Infidel" },
+    { "id": "leathergoddesses-r59", "label": "Leather Goddesses of Phobos" },
+    { "id": "lurkinghorror-r219", "label": "The Lurking Horror" },
+    { "id": "moonmist-r9", "label": "Moonmist" },
+    { "id": "planetfall-r37", "label": "Planetfall" },
+    { "id": "plunderedhearts-r26", "label": "Plundered Hearts" },
+    { "id": "seastalker-r16", "label": "Seastalker" },
+    { "id": "sorcerer-r15", "label": "Sorcerer" },
+    { "id": "spellbreaker-r87", "label": "Spellbreaker" },
+    { "id": "starcross-r17", "label": "Starcross" },
+    { "id": "stationfall-r107", "label": "Stationfall" },
+    { "id": "suspect-r14", "label": "Suspect" },
+    { "id": "suspended-mac-r8", "label": "Suspended" },
+    { "id": "wishbringer-r69", "label": "Wishbringer" },
+    { "id": "witness-r22", "label": "The Witness" },
+    { "id": "zork1-r88", "label": "Zork I" },
+    { "id": "zork2-r48", "label": "Zork II" },
+    { "id": "zork3-r17", "label": "Zork III" }
+  ]
+}

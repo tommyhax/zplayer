@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+# Build output from the pinned z stories and the artwork generator.
+public/stories/
+public/icon.png
+public/icon-512.png
+public/LICENSE
+public/NOTICE.md

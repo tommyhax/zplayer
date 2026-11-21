@@ -1,0 +1,41 @@
+{
+  "name": "@z/zplayer",
+  "license": "SEE LICENSE IN LICENSE",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The player: a shelf of story files and @z/desk to play them on, for a tablet.",
+  "scripts": {
+    "build:packages": "tsc --build tsconfig.packages.json",
+    "stage": "node scripts/stage.mjs",
+    "dev": "npm run build:packages && npm run stage && vite",
+    "start": "npm run dev --",
+    "build": "npm run build:packages && npm run stage && vite build",
+    "typecheck": "npm run build:packages && tsc --noEmit",
+    "test": "vitest run",
+    "preview": "vite preview",
+    "ios": "npm run build && cap copy ios && open ios/App/zPlayer.xcodeproj"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
+    "@z/desk": "0.0.0",
+    "@z/zip": "0.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "vite": "^8.2.2",
+    "@types/node": "^22.10.2",
+    "happy-dom": "^20.14.0",
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.11"
+  },
+  "workspaces": [
+    "z/packages/core",
+    "z/packages/zip",
+    "z/packages/desk"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  }
+}
